@@ -92,19 +92,15 @@ public class Tank extends Role{
         switch (direction) {
             case UP:
                 y -= speed;
-                System.out.println("GO UP");
                 break;
             case DOWN:
                 y += speed;
-                System.out.println("GO DOWN");
                 break;
             case LEFT:
                 x -= speed;
-                System.out.println("GO LEFT");
                 break;
             case RIGHT:
                 x += speed;
-                System.out.println("GO RIGHT");
                 break;
             default:
                 break;
