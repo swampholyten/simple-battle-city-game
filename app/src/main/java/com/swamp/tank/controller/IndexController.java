@@ -16,6 +16,7 @@ public class IndexController {
 
     @FXML
     void mouseEnteredStartGame(MouseEvent event) {
+        startGame.setOpacity(0.8);
     }
 
     @FXML
