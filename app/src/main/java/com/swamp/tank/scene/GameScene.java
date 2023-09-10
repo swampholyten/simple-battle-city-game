@@ -2,6 +2,9 @@ package com.swamp.tank.scene;
 
 import com.swamp.tank.Director;
 import com.swamp.tank.sprite.Background;
+import com.swamp.tank.sprite.Tank;
+import com.swamp.tank.util.Direction;
+import com.swamp.tank.util.Group;
 
 import javafx.animation.AnimationTimer;
 import javafx.event.EventHandler;
@@ -22,16 +25,20 @@ public class GameScene {
     private boolean running = false;
 
     private Background background = new Background();
+    private Tank self = null;
 
     private void paint() {
         background.paint(graphicsContext);
+        self.paint(graphicsContext);
     }
 
     public void init(Stage stage) {
         AnchorPane root = new AnchorPane(canvas);
         stage.getScene().setRoot(root);
         stage.getScene().setOnKeyReleased(keyProcess);
+        stage.getScene().setOnKeyPressed(keyProcess);
         running = true;
+        self = new Tank(400, 500, this, Group.GREEN, Direction.STOP, Direction.UP);
         refresh.start();
     }
 
@@ -57,17 +64,22 @@ public class GameScene {
         @Override
         public void handle(KeyEvent event) {
             KeyCode keyCode = event.getCode();
-            if (keyCode.equals(KeyCode.SPACE)) {
-                pauseOrContinue();
+            
+            if (event.getEventType() == KeyEvent.KEY_RELEASED) {
+                if (keyCode.equals(KeyCode.SPACE)) {
+                    pauseOrContinue();
+                }
+                self.released(keyCode);
+            } else if (event.getEventType() == KeyEvent.KEY_PRESSED) {
+                self.pressed(keyCode);
             }
         }
     }
 
     public void pauseOrContinue() {
-        if (running) {
+        if(running) {
             running = false;
-        }
-        else {
+        }else {
             running = true;
         }
     }

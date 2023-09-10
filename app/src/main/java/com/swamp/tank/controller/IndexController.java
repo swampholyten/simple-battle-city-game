@@ -1,7 +1,7 @@
 package com.swamp.tank.controller;
 
 import com.swamp.tank.Director;
-import com.swamp.tank.sound.SoundEffect;
+import com.swamp.tank.util.SoundEffect;
 
 import javafx.fxml.FXML;
 import javafx.scene.image.ImageView;

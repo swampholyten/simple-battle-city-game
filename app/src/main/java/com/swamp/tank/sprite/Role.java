@@ -11,10 +11,10 @@ import javafx.scene.image.Image;
 
 public abstract class Role extends Sprite{
 
-    private boolean alive = true;
-    private Group group;
-    private Direction direction;
-    private double speed;
+    boolean alive = true;
+    Group group;
+    Direction direction;
+    double speed;
     Map<String, Image> imageMap = new HashMap<>();
 
     public Role(double x, double y, double width, double height, GameScene gameScene, Group group, Direction direction) {
