@@ -140,4 +140,19 @@ public class Bullet extends Role{
         }
     }
 
+    public boolean impactRock(Rock rock) {
+        if (rock != null && getContour().intersects(rock.getContour())) {
+            alive = false;
+            return true;
+        }
+        return false;
+    }
+
+    public void impactRocks(List<Rock> rocks) {
+        for (int i = 0; i < rocks.size(); i++) {
+            Rock rock = rocks.get(i);
+            impactRock(rock);
+        }
+    }
+
 }

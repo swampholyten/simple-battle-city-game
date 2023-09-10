@@ -226,7 +226,7 @@ public class Tank extends Role{
 
 
     public boolean impact(Sprite sprite) {
-        if (sprite != null && getContour().intersects(sprite.getContour())) {
+        if (sprite != null && !sprite.equals(this) && getContour().intersects(sprite.getContour())) {
             x = oldX;
             y = oldY;
             return true;

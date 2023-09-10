@@ -1,5 +1,6 @@
 package com.swamp.tank;
 
+import com.swamp.tank.scene.GameOver;
 import com.swamp.tank.scene.GameScene;
 import com.swamp.tank.scene.Index;
 import javafx.scene.Scene;
@@ -43,8 +44,9 @@ public class Director {
         Index.load(stage);
     }
 
-    public void gameOver() {
-        
+    public void gameOver(boolean success) {
+        gameScene.clear(stage);
+        GameOver.load(stage, success);
     }
 
     public void gameStart() {

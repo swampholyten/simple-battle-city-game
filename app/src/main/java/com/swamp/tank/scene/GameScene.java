@@ -8,7 +8,9 @@ import com.swamp.tank.sprite.Background;
 import com.swamp.tank.sprite.Bullet;
 import com.swamp.tank.sprite.Crate;
 import com.swamp.tank.sprite.Explode;
+import com.swamp.tank.sprite.Rock;
 import com.swamp.tank.sprite.Tank;
+import com.swamp.tank.sprite.Tree;
 import com.swamp.tank.util.Direction;
 import com.swamp.tank.util.Group;
 
@@ -37,6 +39,8 @@ public class GameScene {
     public List<Tank> tanks = new ArrayList<>();
     public List<Explode> explodes = new ArrayList<>();
     public List<Crate> crates = new ArrayList<>();
+    public List<Rock> rocks = new ArrayList<>();
+    public List<Tree> trees = new ArrayList<>();
 
 
     private void paint() {
@@ -44,6 +48,7 @@ public class GameScene {
         self.paint(graphicsContext);
         self.impact(tanks);
         self.impact(crates);
+        self.impact(rocks);
         
 
         for (int i = 0; i < bullets.size(); i++) {
@@ -51,6 +56,8 @@ public class GameScene {
             bullet.paint(graphicsContext);
             bullet.impactTank(tanks);
             bullet.impactCrates(crates);
+            bullet.impactRocks(rocks);
+            bullet.impactTank(self);
         }
 
         for (int i = 0; i < tanks.size(); i++) {
@@ -58,6 +65,8 @@ public class GameScene {
             tank.paint(graphicsContext);
             tank.impact(self);
             tank.impact(crates);
+            tank.impact(rocks);
+            tank.impact(tanks);
         }
 
         for (int i = 0; i < explodes.size(); i++) {
@@ -70,10 +79,26 @@ public class GameScene {
             crate.paint(graphicsContext);
         }
 
+        for (int i = 0; i < rocks.size(); i++) {
+            Rock rock = rocks.get(i);
+            rock.paint(graphicsContext);
+        }
+
+        for (int i = 0; i < trees.size(); i++) {
+            Tree tree = trees.get(i);
+            tree.paint(graphicsContext);
+        }
+
         // graphicsContext.setFill(Color.GREEN);
         graphicsContext.setFont(new Font(20));
         graphicsContext.fillText("敌军的数量： " + tanks.size(), 800, 60);
         graphicsContext.fillText("子弹的数量： " + bullets.size(), 800, 90);
+
+        if (!self.isAlive()) {
+            Director.getInstance().gameOver(false);
+        } else if (tanks.isEmpty()) {
+            Director.getInstance().gameOver(true);
+        }
     }
 
     public void init(Stage stage) {
@@ -89,7 +114,15 @@ public class GameScene {
 
     public void clear(Stage stage) {
         stage.getScene().removeEventHandler(KeyEvent.KEY_RELEASED, keyProcess);
+        stage.getScene().removeEventHandler(KeyEvent.KEY_PRESSED, keyProcess);
         refresh.stop();
+        self = null;
+        tanks.clear();
+        bullets.clear();
+        crates.clear();
+        explodes.clear();
+        rocks.clear();
+        trees.clear();
     }
 
     private void initSprite() {
@@ -104,6 +137,17 @@ public class GameScene {
             crates.add(crate1);
             crates.add(crate2);
         }
+
+        for (int i = 0; i < 5; i++) {
+            Rock rock = new Rock(350 + i * 71, 300);
+            rocks.add(rock);
+        }
+
+        for (int i = 0; i < 3; i++) {
+            Tree tree = new Tree(450 + i * 86, 400);
+            trees.add(tree);
+        }
+
     }
 
 
@@ -128,9 +172,13 @@ public class GameScene {
                 if (keyCode.equals(KeyCode.SPACE)) {
                     pauseOrContinue();
                 }
-                self.released(keyCode);
+                if (self != null) {
+                    self.released(keyCode);
+                }
             } else if (event.getEventType() == KeyEvent.KEY_PRESSED) {
-                self.pressed(keyCode);
+                if (self != null) {
+                    self.pressed(keyCode);
+                }
             }
         }
     }
