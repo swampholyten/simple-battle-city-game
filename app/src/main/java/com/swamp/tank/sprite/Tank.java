@@ -55,7 +55,7 @@ public class Tank extends Role{
 
     public void released(KeyCode keyCode) {
         switch (keyCode) {
-            case G:
+            case F:
                 fire();
                 break;
             case UP:
@@ -154,8 +154,35 @@ public class Tank extends Role{
     }
 
     public void fire() {
-        double bulletX = x + width / 2;
-        double bulletY = y - height / 2;
+
+        double bulletX = 0;
+        double bulletY = 0;
+
+        switch (pDirection) {
+            case UP:
+                bulletX = x + 25;
+                bulletY = y;
+                break;
+
+            case DOWN:
+                bulletX = x + 25;
+                bulletY = y + height;
+                break;
+
+            case LEFT:
+                bulletX = x;
+                bulletY = y + 25;
+                break;
+
+            case RIGHT:
+                bulletX = x + width;
+                bulletY = y + 25;
+                break;
+        
+            default:
+                break;
+        }
+
         Bullet bullet = new Bullet(bulletX, bulletY, gameScene, group, pDirection);
         gameScene.bullets.add(bullet);
 
