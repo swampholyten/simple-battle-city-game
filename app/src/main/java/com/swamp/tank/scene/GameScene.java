@@ -36,6 +36,7 @@ public class GameScene {
     private void paint() {
         background.paint(graphicsContext);
         self.paint(graphicsContext);
+        self.impact(tanks);
         
 
         for (int i = 0; i < bullets.size(); i++) {

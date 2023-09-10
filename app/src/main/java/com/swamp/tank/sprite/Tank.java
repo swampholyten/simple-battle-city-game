@@ -1,5 +1,7 @@
 package com.swamp.tank.sprite;
 
+import java.util.List;
+
 import com.swamp.tank.Director;
 import com.swamp.tank.scene.GameScene;
 import com.swamp.tank.util.Direction;
@@ -14,6 +16,7 @@ public class Tank extends Role{
     
     Direction pDirection;
     boolean keyUP, keyDOWN, keyLEFT, keyRIGHT;
+    double oldX, oldY;
 
     public Tank(double x, double y, GameScene gameScene, Group group,
             Direction direction, Direction pDirection) {
@@ -93,6 +96,10 @@ public class Tank extends Role{
 
     @Override
     public void move() {
+
+        oldX = x;
+        oldY = y;
+
         switch (direction) {
             case UP:
                 y -= speed;
@@ -196,6 +203,22 @@ public class Tank extends Role{
     @Override
     public void impactChecking(Sprite sprite) {
 
+    }
+
+
+    public boolean impact(Tank tank) {
+        if (tank != null && getContour().intersects(tank.getContour())) {
+            x = oldX;
+            y = oldY;
+            return true;
+        }
+        return false;
+    }
+    
+    public void impact(List<Tank> tanks) {
+        for (Tank tank : tanks) {
+            impact(tank);
+        }
     }
 
 }
