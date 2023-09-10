@@ -1,7 +1,7 @@
 package com.swamp.tank;
 
+import com.swamp.tank.scene.GameScene;
 import com.swamp.tank.scene.Index;
-
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
@@ -17,6 +17,7 @@ public class Director {
 
     private static Director instance = new Director();
     private Stage stage;
+    private GameScene gameScene = new GameScene();
 
     private Director() {}
 
