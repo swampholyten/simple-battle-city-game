@@ -132,6 +132,11 @@ public class Tank extends Role{
 
     @Override
     public void paint(GraphicsContext graphicsContext) {
+        if (group.equals(Group.RED) && !alive) {
+            gameScene.tanks.remove(this);
+            return;
+        }
+
         switch (pDirection) {
             case UP:
                 image = imageMap.get("UP");

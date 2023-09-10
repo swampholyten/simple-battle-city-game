@@ -31,12 +31,22 @@ public class GameScene {
     private Background background = new Background();
     private Tank self = null;
     public List<Bullet> bullets = new ArrayList<>();
+    public List<Tank> tanks = new ArrayList<>();
 
     private void paint() {
         background.paint(graphicsContext);
         self.paint(graphicsContext);
-        for (Bullet bullet : bullets) {
+        
+
+        for (int i = 0; i < bullets.size(); i++) {
+            Bullet bullet = bullets.get(i);
             bullet.paint(graphicsContext);
+            bullet.impact(tanks);
+        }
+
+        for (int i = 0; i < tanks.size(); i++) {
+            Tank tank = tanks.get(i);
+            tank.paint(graphicsContext);
         }
     }
 
@@ -47,12 +57,20 @@ public class GameScene {
         stage.getScene().setOnKeyPressed(keyProcess);
         running = true;
         self = new Tank(400, 500, this, Group.GREEN, Direction.STOP, Direction.UP);
+        initSprite();
         refresh.start();
     }
 
     public void clear(Stage stage) {
         stage.getScene().removeEventHandler(KeyEvent.KEY_RELEASED, keyProcess);
         refresh.stop();
+    }
+
+    private void initSprite() {
+        for (int i = 0; i < 6; i++) {
+            Tank tank = new Tank(200 + i * 80, 100, this, Group.RED, Direction.STOP, Direction.DOWN);
+            tanks.add(tank);
+        }
     }
 
 

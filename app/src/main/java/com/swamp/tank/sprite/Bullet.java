@@ -1,5 +1,8 @@
 package com.swamp.tank.sprite;
 
+
+import java.util.List;
+
 import com.swamp.tank.scene.GameScene;
 import com.swamp.tank.util.Direction;
 import com.swamp.tank.util.Group;
@@ -84,14 +87,33 @@ public class Bullet extends Role{
 
     @Override
     public void paint(GraphicsContext graphicsContext) {
+        if (!alive) {
+            gameScene.bullets.remove(this);
+            return;
+        }
+        
         super.paint(graphicsContext);
         move();
     }
 
     @Override
     public void impactChecking(Sprite sprite) {
-        // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'impactChecking'");
     }
+
+    public boolean impact(Tank tank) {
+        if (tank != null && !tank.group.equals(this.group) && getContour().intersects(tank.getContour())) {
+            tank.setAlive(false);
+            alive = false;
+            return true;
+        }
+        return false;
+    }
     
+    public void impact(List<Tank> tanks) {
+        for (Tank tank : tanks) {
+            impact(tank);
+        }
+    }
+
 }
