@@ -10,7 +10,7 @@ public class App extends Application {
 
     @Override
     public void start(Stage stage) throws Exception{
-        
+        Director.getInstance().init(stage);;
     }
 
     public static void main(String[] args) {
