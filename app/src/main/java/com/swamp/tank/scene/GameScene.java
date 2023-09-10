@@ -6,6 +6,7 @@ import java.util.List;
 import com.swamp.tank.Director;
 import com.swamp.tank.sprite.Background;
 import com.swamp.tank.sprite.Bullet;
+import com.swamp.tank.sprite.Crate;
 import com.swamp.tank.sprite.Explode;
 import com.swamp.tank.sprite.Tank;
 import com.swamp.tank.util.Direction;
@@ -18,7 +19,6 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
@@ -36,29 +36,38 @@ public class GameScene {
     public List<Bullet> bullets = new ArrayList<>();
     public List<Tank> tanks = new ArrayList<>();
     public List<Explode> explodes = new ArrayList<>();
+    public List<Crate> crates = new ArrayList<>();
 
 
     private void paint() {
         background.paint(graphicsContext);
         self.paint(graphicsContext);
         self.impact(tanks);
+        self.impact(crates);
         
 
         for (int i = 0; i < bullets.size(); i++) {
             Bullet bullet = bullets.get(i);
             bullet.paint(graphicsContext);
-            bullet.impact(tanks);
+            bullet.impactTank(tanks);
+            bullet.impactCrates(crates);
         }
 
         for (int i = 0; i < tanks.size(); i++) {
             Tank tank = tanks.get(i);
             tank.paint(graphicsContext);
             tank.impact(self);
+            tank.impact(crates);
         }
 
         for (int i = 0; i < explodes.size(); i++) {
             Explode explode = explodes.get(i);
             explode.paint(graphicsContext);
+        }
+
+        for (int i = 0; i < crates.size(); i++) {
+            Crate crate = crates.get(i);
+            crate.paint(graphicsContext);
         }
 
         // graphicsContext.setFill(Color.GREEN);
@@ -87,6 +96,13 @@ public class GameScene {
         for (int i = 0; i < 6; i++) {
             Tank tank = new Tank(200 + i * 80, 100, this, Group.RED, Direction.STOP, Direction.DOWN);
             tanks.add(tank);
+        }
+
+        for (int i = 0; i < 20; i++) {
+            Crate crate1 = new Crate(100 + i * 31, 200);
+            Crate crate2 = new Crate(100 + i * 31, 232);
+            crates.add(crate1);
+            crates.add(crate2);
         }
     }
 

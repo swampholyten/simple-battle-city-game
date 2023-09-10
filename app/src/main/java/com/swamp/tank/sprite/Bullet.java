@@ -109,7 +109,7 @@ public class Bullet extends Role{
         throw new UnsupportedOperationException("Unimplemented method 'impactChecking'");
     }
 
-    public boolean impact(Tank tank) {
+    public boolean impactTank(Tank tank) {
         if (tank != null && !tank.group.equals(this.group) && getContour().intersects(tank.getContour())) {
             tank.setAlive(false);
             alive = false;
@@ -118,9 +118,25 @@ public class Bullet extends Role{
         return false;
     }
     
-    public void impact(List<Tank> tanks) {
+    public void impactTank(List<Tank> tanks) {
         for (Tank tank : tanks) {
-            impact(tank);
+            impactTank(tank);
+        }
+    }
+
+    public boolean impactCrate(Crate crate) {
+        if (crate != null && getContour().intersects(crate.getContour())) {
+            alive = false;
+            gameScene.crates.remove(crate);
+            return true;
+        }
+        return false;
+    }
+
+    public void impactCrates(List<Crate> crates) {
+        for (int i = 0; i < crates.size(); i++) {
+            Crate crate = crates.get(i);
+            impactCrate(crate);
         }
     }
 

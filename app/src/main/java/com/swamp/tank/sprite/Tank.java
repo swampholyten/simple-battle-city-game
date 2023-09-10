@@ -225,8 +225,8 @@ public class Tank extends Role{
     }
 
 
-    public boolean impact(Tank tank) {
-        if (tank != null && getContour().intersects(tank.getContour())) {
+    public boolean impact(Sprite sprite) {
+        if (sprite != null && getContour().intersects(sprite.getContour())) {
             x = oldX;
             y = oldY;
             return true;
@@ -234,9 +234,9 @@ public class Tank extends Role{
         return false;
     }
     
-    public void impact(List<Tank> tanks) {
-        for (Tank tank : tanks) {
-            impact(tank);
+    public void impact(List<? extends Sprite> sprites) {
+        for (Sprite sprite : sprites) {
+            impact(sprite);
         }
     }
 
