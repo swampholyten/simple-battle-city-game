@@ -1,5 +1,6 @@
 package com.swamp.tank.sprite;
 
+import com.swamp.tank.Director;
 import com.swamp.tank.scene.GameScene;
 import com.swamp.tank.util.Direction;
 import com.swamp.tank.util.Group;
@@ -18,7 +19,7 @@ public class Tank extends Role{
             Direction direction, Direction pDirection) {
         super(x, y, 60, 60, gameScene, group, direction);
         this.pDirection = pDirection;
-        speed = 20;
+        speed = 10;
         if (group.equals(Group.GREEN)) {
             imageMap.put("UP", new Image("/image/tank-green-up.png"));
             imageMap.put("DOWN", new Image("/image/tank-green-down.png"));
@@ -108,6 +109,20 @@ public class Tank extends Role{
 
         if (direction != Direction.STOP) {
             pDirection = direction;
+        }
+
+        if (x < 0) {
+            x = 0;
+        }
+        if (y < 0) {
+            y = 0;
+        }
+
+        if (x > Director.WIDTH - width) {
+            x = Director.WIDTH - width;
+        }
+        if (y > Director.HEIGHT - height - 30) {
+            y = Director.HEIGHT - height - 30;
         }
 
     }
