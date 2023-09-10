@@ -31,6 +31,8 @@ public class Director {
         stage.getIcons().add(new Image("/image/logo.png"));
         stage.setResizable(false);
         stage.setScene(scene);
+        stage.setWidth(WIDTH);
+        stage.setHeight(HEIGHT);
         this.stage = stage;
         toIndex();
         stage.show();
