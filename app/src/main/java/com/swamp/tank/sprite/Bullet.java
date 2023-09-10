@@ -3,9 +3,11 @@ package com.swamp.tank.sprite;
 
 import java.util.List;
 
+import com.swamp.tank.Director;
 import com.swamp.tank.scene.GameScene;
 import com.swamp.tank.util.Direction;
 import com.swamp.tank.util.Group;
+import com.swamp.tank.util.SoundEffect;
 
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
@@ -83,12 +85,18 @@ public class Bullet extends Role{
                 break;
         }
 
+        if (x < 0 || y < 0 || x > Director.WIDTH || y > Director.HEIGHT) {
+            gameScene.bullets.remove(this);
+        }
+
     }
 
     @Override
     public void paint(GraphicsContext graphicsContext) {
         if (!alive) {
             gameScene.bullets.remove(this);
+            gameScene.explodes.add(new Explode(x, y, gameScene));
+            SoundEffect.play("/sound/explosion.wav");
             return;
         }
         

@@ -6,6 +6,7 @@ import com.swamp.tank.Director;
 import com.swamp.tank.scene.GameScene;
 import com.swamp.tank.util.Direction;
 import com.swamp.tank.util.Group;
+import com.swamp.tank.util.SoundEffect;
 
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
@@ -59,6 +60,7 @@ public class Tank extends Role{
     public void released(KeyCode keyCode) {
         switch (keyCode) {
             case F:
+                SoundEffect.play("/sound/attack.mp3");
                 fire();
                 break;
             case UP:

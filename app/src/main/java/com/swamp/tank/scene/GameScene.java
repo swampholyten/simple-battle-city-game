@@ -6,6 +6,7 @@ import java.util.List;
 import com.swamp.tank.Director;
 import com.swamp.tank.sprite.Background;
 import com.swamp.tank.sprite.Bullet;
+import com.swamp.tank.sprite.Explode;
 import com.swamp.tank.sprite.Tank;
 import com.swamp.tank.util.Direction;
 import com.swamp.tank.util.Group;
@@ -17,6 +18,8 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
 public class GameScene {
@@ -32,6 +35,8 @@ public class GameScene {
     private Tank self = null;
     public List<Bullet> bullets = new ArrayList<>();
     public List<Tank> tanks = new ArrayList<>();
+    public List<Explode> explodes = new ArrayList<>();
+
 
     private void paint() {
         background.paint(graphicsContext);
@@ -49,6 +54,16 @@ public class GameScene {
             Tank tank = tanks.get(i);
             tank.paint(graphicsContext);
         }
+
+        for (int i = 0; i < explodes.size(); i++) {
+            Explode explode = explodes.get(i);
+            explode.paint(graphicsContext);
+        }
+
+        // graphicsContext.setFill(Color.GREEN);
+        graphicsContext.setFont(new Font(20));
+        graphicsContext.fillText("敌军的数量： " + tanks.size(), 800, 60);
+        graphicsContext.fillText("子弹的数量： " + bullets.size(), 800, 90);
     }
 
     public void init(Stage stage) {
