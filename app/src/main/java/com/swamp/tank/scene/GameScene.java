@@ -53,6 +53,7 @@ public class GameScene {
         for (int i = 0; i < tanks.size(); i++) {
             Tank tank = tanks.get(i);
             tank.paint(graphicsContext);
+            tank.impact(self);
         }
 
         for (int i = 0; i < explodes.size(); i++) {

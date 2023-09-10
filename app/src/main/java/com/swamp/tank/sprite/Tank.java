@@ -1,6 +1,7 @@
 package com.swamp.tank.sprite;
 
 import java.util.List;
+import java.util.Random;
 
 import com.swamp.tank.Director;
 import com.swamp.tank.scene.GameScene;
@@ -18,6 +19,7 @@ public class Tank extends Role{
     Direction pDirection;
     boolean keyUP, keyDOWN, keyLEFT, keyRIGHT;
     double oldX, oldY;
+    public static Random random = new Random();
 
     public Tank(double x, double y, GameScene gameScene, Group group,
             Direction direction, Direction pDirection) {
@@ -135,6 +137,21 @@ public class Tank extends Role{
         }
         if (y > Director.HEIGHT - height - 30) {
             y = Director.HEIGHT - height - 30;
+        }
+
+        if (group.equals(Group.RED)) {
+            int i = random.nextInt(60);
+            switch (i) {
+                case 15:
+                    Direction dir[] = Direction.values();
+                    direction = dir[random.nextInt(dir.length)];
+                    break;
+                case 30:
+                    fire();
+                    break;
+                default:
+                    break;
+            }
         }
 
     }
