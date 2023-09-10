@@ -1,5 +1,6 @@
 package com.swamp.tank.controller;
 
+import com.swamp.tank.Director;
 import com.swamp.tank.sound.SoundEffect;
 
 import javafx.fxml.FXML;
@@ -13,7 +14,8 @@ public class IndexController {
 
     @FXML
     void mouseClickedStartGame(MouseEvent event) {
-
+        SoundEffect.play("/sound/done.wav");
+        Director.getInstance().gameStart();
     }
 
     @FXML

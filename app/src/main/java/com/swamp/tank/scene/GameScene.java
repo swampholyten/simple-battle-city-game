@@ -1,6 +1,7 @@
 package com.swamp.tank.scene;
 
 import com.swamp.tank.Director;
+import com.swamp.tank.sprite.Background;
 
 import javafx.animation.AnimationTimer;
 import javafx.event.EventHandler;
@@ -20,14 +21,17 @@ public class GameScene {
     private Refresh refresh = new Refresh();
     private boolean running = false;
 
-    private void paint() {
+    private Background background = new Background();
 
+    private void paint() {
+        background.paint(graphicsContext);
     }
 
     public void init(Stage stage) {
         AnchorPane root = new AnchorPane(canvas);
         stage.getScene().setRoot(root);
         stage.getScene().setOnKeyReleased(keyProcess);
+        running = true;
         refresh.start();
     }
 

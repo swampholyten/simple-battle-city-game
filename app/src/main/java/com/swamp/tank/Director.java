@@ -48,7 +48,7 @@ public class Director {
     }
 
     public void gameStart() {
-
+        gameScene.init(stage);
     }
 
 }
