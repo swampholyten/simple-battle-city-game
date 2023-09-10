@@ -19,7 +19,7 @@ public class Tank extends Role{
             Direction direction, Direction pDirection) {
         super(x, y, 60, 60, gameScene, group, direction);
         this.pDirection = pDirection;
-        speed = 10;
+        speed = 5;
         if (group.equals(Group.GREEN)) {
             imageMap.put("UP", new Image("/image/tank-green-up.png"));
             imageMap.put("DOWN", new Image("/image/tank-green-down.png"));
@@ -55,6 +55,9 @@ public class Tank extends Role{
 
     public void released(KeyCode keyCode) {
         switch (keyCode) {
+            case G:
+                fire();
+                break;
             case UP:
                 keyUP = false;
                 break;
@@ -148,6 +151,14 @@ public class Tank extends Role{
 
         super.paint(graphicsContext);
         move();
+    }
+
+    public void fire() {
+        double bulletX = x + width / 2;
+        double bulletY = y - height / 2;
+        Bullet bullet = new Bullet(bulletX, bulletY, gameScene, group, pDirection);
+        gameScene.bullets.add(bullet);
+
     }
 
     @Override

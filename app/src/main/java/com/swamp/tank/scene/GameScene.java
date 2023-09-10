@@ -1,7 +1,11 @@
 package com.swamp.tank.scene;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.swamp.tank.Director;
 import com.swamp.tank.sprite.Background;
+import com.swamp.tank.sprite.Bullet;
 import com.swamp.tank.sprite.Tank;
 import com.swamp.tank.util.Direction;
 import com.swamp.tank.util.Group;
@@ -26,10 +30,14 @@ public class GameScene {
 
     private Background background = new Background();
     private Tank self = null;
+    public List<Bullet> bullets = new ArrayList<>();
 
     private void paint() {
         background.paint(graphicsContext);
         self.paint(graphicsContext);
+        for (Bullet bullet : bullets) {
+            bullet.paint(graphicsContext);
+        }
     }
 
     public void init(Stage stage) {
